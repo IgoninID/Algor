@@ -10,6 +10,7 @@ int main()
 
     // Исходный вектор
     vector<int> numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    vector<int> numbers2 = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
     // for_each 
     // Применяет функцию ко всем элементам контейнера
@@ -134,4 +135,38 @@ int main()
     for (auto x : rev) {
         cout << x << " ";
     }
+    cout << "\n";
+
+    // remove_if
+    // удаляет элементы соответствующие условию (на самом деле не удаляет, возвращает итератор на конец измененного массива соответсвующего условию,
+    // элементы не удовлетворяющие условию остаются после конца, нужно удалить с помощью erase)
+    auto n = remove_if(numbers.begin(), numbers.end(), [](int n) {
+        return n % 2 == 0; // предикат
+        });
+    cout << "Только нечетные числа(до erase): ";
+    for (auto x : numbers) {
+        cout << x << " ";
+    }
+    cout << "\n";
+    numbers.erase(n, numbers.end());
+    cout << "Только нечетные числа(после erase): ";
+    for (auto x : numbers) {
+        cout << x << " ";
+    }
+    cout << "\n";
+
+    auto [first, last] = ranges::remove_if(numbers2, [](int n) {
+        return n % 2 == 0; // предикат
+        });
+    cout << "Только нечетные числа(до erase): ";
+    for (auto x : numbers2) {
+        cout << x << " ";
+    }
+    cout << "\n";
+    numbers2.erase(first, last);
+    cout << "Только нечетные числа(после erase): ";
+    for (auto x : numbers2) {
+        cout << x << " ";
+    }
+    cout << "\n";
 }
